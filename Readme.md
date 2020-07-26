@@ -6,9 +6,19 @@ It uses SSL by default to connect to the IMAP server.
 
 ## Requirements
 
-You need to have the .NET Core 3.1 SDK installed to build this. You can use Visual Studio Community edition to build it.
+To run the application you can download the Windows x64 binary to run it without dependencies on a Windows 64-bit operating system.
+If you are on another platform, you need to install the [.NET Core framework](https://dotnet.microsoft.com/download) to be able to run the general framework dependent release.
+
+## Releases
+
+See [releases](https://github.com/n3wjack/ImapCleanup/releases)
+
+- ImapCleanup-1.0.zip: framework dependent version. You need to have the .NET Core 3.1 framework installed to run this. This runs on any platform.
+- ImapCleanup-1.0-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
 
 ## Building
+
+You need to have the .NET Core 3.1 SDK installed to build this. You can use Visual Studio Community edition to build it.
 
 There are 3 way to build the project.
 
