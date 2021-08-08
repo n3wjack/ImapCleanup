@@ -1,6 +1,7 @@
 ﻿# IMAP Cleanup
 
-IMAP Cleanup is a small .NET Core application to cleanup an IMAP inbox and leave only a number of most recent messages behind. 
+IMAP Cleanup is a small .NET Core applicaton to delete old emails from an IMAP inbox and leave only a number of most recent messages behind.
+You can thus also use this to delete all emails from an IMAP inbox.
 
 It uses SSL by default to connect to the IMAP server. 
 
