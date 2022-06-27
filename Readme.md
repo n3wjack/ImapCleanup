@@ -1,6 +1,6 @@
 ﻿# IMAP Cleanup
 
-IMAP Cleanup is a small .NET Core applicaton to delete old emails from an IMAP inbox and leave only a number of most recent messages behind.
+IMAP Cleanup is a small .NET Core applicaton to delete emails from an IMAP inbox, leave only a number of most recent messages or delete emails inbetween a time range.
 You can thus also use this to delete all emails from an IMAP inbox.
 
 It uses SSL by default to connect to the IMAP server. 
@@ -20,24 +20,29 @@ For the framework version, it contains a number of other files, so it's better t
 
 ## Usage
 
-Once built or installed, you can call the executable using command line arguments to point it to your IMAP inbox, like this:
+Once built or installed, you can call the executable using command line arguments to point it to your IMAP inbox.
+This will delete all messages, except the 500 most recent ones:
 
-	.\ImapCleanup.exe --hostname imap.mailserver.com --port 993 --username jack@foobar.com --password horsestaplebattery --count 500
+	.\ImapCleanup.exe count --keep 500 --hostname imap.mailserver.com --port 993 --username jack@foobar.com --password horsestaplebattery
 
-This will delete all messages, except the 500 most recent ones.
+
+Or you can delete all emails that have a timestamp between 11 'o clock in the evening and 6 in the morning:
+
+	.\ImapCleanup.exe time --from 23:00 --to 6:00 --hostname imap.mailserver.com --port 993 --username jack@foobar.com --password horsestaplebattery 
 
 For help, use `.\ImapCleanup.exe /?`
+For help with one of the subcommands, use `.\ImapCleanup.exe count` or `.\ImapCleanup.exe time`
 
 ## Releases
 
 See [releases](https://github.com/n3wjack/ImapCleanup/releases)
 
-- ImapCleanup-1.0.zip: framework dependent version. You need to have the .NET Core 3.1 framework installed to run this. This runs on any platform.
-- ImapCleanup-1.0-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
+- ImapCleanup-2.0.zip: framework dependent version. You need to have the .NET Core 6.0 framework installed to run this. This runs on any platform.
+- ImapCleanup-2.0-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
 
 ## Building
 
-You need to have the .NET Core 3.1 SDK installed to build this. You can use Visual Studio Community edition to build it.
+You need to have the .NET Core 6.0 SDK installed to build this. You can use Visual Studio Community edition to build it.
 
 There are 3 way to build the project.
 
@@ -50,6 +55,6 @@ There are 3 way to build the project.
 This tool deletes emails. **USE AT YOUR OWN RISK.**
 
 This little tool works fine for me. It deletes the oldest messages, leaves the right ones and that's it.
-I haven't tested this thoroughly on every possible email server and IMAP configuration in the world. So if this ends up deleting vital emails you're on your own I'm afraid.
+I haven't tested this thoroughly on every possible email server and IMAP configuration in the world. So if this ends up deleting vital emails, you're on your own I'm afraid.
 Before you point this to anything critical, test it on a dummy inbox with some test emails, just to be sure. 
 
