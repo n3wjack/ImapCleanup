@@ -30,7 +30,7 @@ Or you can delete all emails that have a timestamp between 11 'o clock in the ev
 
 	.\ImapCleanup.exe time --from 23:00 --to 6:00 --hostname imap.mailserver.com --port 993 --username jack@foobar.com --password horsestaplebattery 
 
-For help, use `.\ImapCleanup.exe /?`
+For help, just run `.\ImapCleanup.exe ` for the available options.
 For help with one of the subcommands, use `.\ImapCleanup.exe count` or `.\ImapCleanup.exe time`
 
 ## Releases
