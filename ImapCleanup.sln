@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImapCleanup", "ImapCleanup\ImapCleanup.csproj", "{F669DDD0-2F89-401D-8529-FB627375CF1D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImapCleanup.Tests", "ImapCleanup.Tests\ImapCleanup.Tests.csproj", "{E4FC16CD-C222-4E96-8A8E-8E75F6DD4944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F669DDD0-2F89-401D-8529-FB627375CF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F669DDD0-2F89-401D-8529-FB627375CF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F669DDD0-2F89-401D-8529-FB627375CF1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4FC16CD-C222-4E96-8A8E-8E75F6DD4944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4FC16CD-C222-4E96-8A8E-8E75F6DD4944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4FC16CD-C222-4E96-8A8E-8E75F6DD4944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4FC16CD-C222-4E96-8A8E-8E75F6DD4944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
