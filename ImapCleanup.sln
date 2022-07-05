@@ -5,8 +5,6 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImapCleanup", "ImapCleanup.csproj", "{D0151B6F-42F2-45D0-8D9B-4F9C410EBF6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImapCleanupTests", "..\ImapCleanupTests\ImapCleanupTests.csproj", "{CBECD05F-B88D-4414-B1BE-1B5D896172CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{D0151B6F-42F2-45D0-8D9B-4F9C410EBF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0151B6F-42F2-45D0-8D9B-4F9C410EBF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0151B6F-42F2-45D0-8D9B-4F9C410EBF6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CBECD05F-B88D-4414-B1BE-1B5D896172CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBECD05F-B88D-4414-B1BE-1B5D896172CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBECD05F-B88D-4414-B1BE-1B5D896172CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBECD05F-B88D-4414-B1BE-1B5D896172CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
