@@ -37,7 +37,7 @@ For help with one of the subcommands, use `.\ImapCleanup.exe count` or `.\ImapCl
 
 See [releases](https://github.com/n3wjack/ImapCleanup/releases)
 
-- ImapCleanup-2.0.zip: framework dependent version. You need to have the .NET Core 6.0 framework installed to run this. This runs on any platform.
+- ImapCleanup-2.0.zip: framework dependent version. You need to have the .NET Core 8.0 framework installed to run this. This runs on any platform.
 - ImapCleanup-2.0-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
 
 ## Building
