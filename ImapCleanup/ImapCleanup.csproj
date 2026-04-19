@@ -1,16 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <FileVersion></FileVersion>
+    <TargetFramework>net10.0</TargetFramework>
+    <FileVersion>
+    </FileVersion>
     <Version>2.0.1.0</Version>
     <PublishTrimmed>False</PublishTrimmed>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>$(NoWarn);NU1507;CS1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>$(NoWarn);NU1507;CS1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="4.16.0" />
-    <PackageReference Include="System.CommandLine.DragonFruit" Version="0.4.0-alpha.22272.1" />
+    <PackageReference Include="MailKit" />
+    <PackageReference Include="System.CommandLine.DragonFruit" />
   </ItemGroup>
-
 </Project>

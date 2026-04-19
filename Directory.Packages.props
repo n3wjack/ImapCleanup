@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="xunit" Version="2.8.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
+    <PackageVersion Include="MailKit" Version="4.16.0" />
+    <PackageVersion Include="System.CommandLine.DragonFruit" Version="0.4.0-alpha.22272.1" />
+  </ItemGroup>
+</Project>
