@@ -1,4 +1,4 @@
-$version = "2.0.1"
+$version = "2.0.2"
 
 Write-Host "`n*** Building self-contained winx64 exectable. ***`n" -ForegroundColor Cyan
 
