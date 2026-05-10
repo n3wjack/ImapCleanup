@@ -1,4 +1,8 @@
-$version = "2.0.2"
+param([Parameter(Mandatory)]$version)
+
+$buildFolder = "bin\Release\net10.0"
+
+# --------------------------------------------------------------------------------------
 
 Write-Host "`n*** Building self-contained winx64 exectable. ***`n" -ForegroundColor Cyan
 
@@ -15,7 +19,7 @@ dotnet publish -p:PublishSingleFile=true -r win-x64 -c Release --self-contained 
 
 Write-Host "Create archive regular build..." -ForegroundColor Cyan
 pushd
-cd bin\Release\net8.0\publish\
+cd (Join-Path $buildFolder "publish")
 7z a  "ImapCleanup-$version.zip"  *.*
 
 Write-Host "Smoke test" -ForegroundColor Cyan
@@ -28,7 +32,7 @@ popd
 
 Write-Host "Create archive for self contained build..." -ForegroundColor Cyan
 pushd
-cd bin\Release\net8.0\win-x64\publish
+cd (Join-Path $buildFolder "win-x64\publish")
 7z a "ImapCleanup-$version-Windowsx64-self-contained.zip" ImapCleanup.exe
 
 Write-Host "Smoke test" -ForegroundColor Cyan

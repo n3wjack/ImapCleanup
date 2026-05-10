@@ -42,7 +42,7 @@ See [releases](https://github.com/n3wjack/ImapCleanup/releases)
 
 ## Building
 
-You need to have the .NET Core 6.0 SDK installed to build this. You can use Visual Studio Community edition to build it.
+You need to have the .NET Core 10 SDK installed to build this. You can use Visual Studio Community edition to build it.
 
 There are 3 way to build the project.
 
