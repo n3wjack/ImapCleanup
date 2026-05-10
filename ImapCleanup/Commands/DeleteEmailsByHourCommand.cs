@@ -13,31 +13,49 @@ namespace ImapCleanup.Commands
         {
         }
 
-        internal void Run(TimeSpan fromHour, TimeSpan toHour)
+        internal void Run(TimeSpan fromHour, TimeSpan toHour, int batchSize)
         {
-            LoginAndRunAction((imapClient) => RemoveEmails(imapClient, fromHour, toHour));
+            LoginAndRunAction((imapClient) => RemoveEmails(imapClient, fromHour, toHour, batchSize));
         }
 
-        private void RemoveEmails(ImapClient client, TimeSpan fromHour, TimeSpan toHour)
+        private void RemoveEmails(ImapClient client, TimeSpan fromHour, TimeSpan toHour, int batchSize)
         {
             Console.WriteLine("Getting messages...");
+
             client.Inbox.Open(FolderAccess.ReadWrite);
-            var messages = client.Inbox.Fetch(0, client.Inbox.Count - 1, MessageSummaryItems.All);
 
-            foreach (var message in messages)
+            var emailCount = client.Inbox.Count;
+            var startIndex = 0;
+
+            Console.WriteLine($"Number of emails: {emailCount}");
+
+            do
             {
-                if (!message.Date.TimeOfDay.IsInTimeFrame(fromHour, toHour))
+                var endIndex = startIndex + batchSize - 1;
+                endIndex = endIndex > emailCount - 1 ? emailCount - 1 : endIndex;
+
+                Console.WriteLine($"Processing emails from index {startIndex} to {endIndex}");
+
+                var messages = client.Inbox.Fetch(startIndex, endIndex, MessageSummaryItems.All);
+
+                foreach (var message in messages)
                 {
-                    continue;
+                    if (!message.Date.TimeOfDay.IsInTimeFrame(fromHour, toHour))
+                    {
+                        continue;
+                    }
+
+                    Console.WriteLine($"Marking message for deletion: [{message.Index}] {message.Date} - {message.NormalizedSubject}");
+
+                    if (!WhatIf)
+                    {
+                        client.Inbox.AddFlags(message.Index, MessageFlags.Deleted, true);
+                    }
                 }
 
-                Console.WriteLine($"Marking message for deletion: [{message.Index}] {message.Date} - {message.NormalizedSubject}");
+                startIndex = endIndex + 1;
 
-                if (!WhatIf)
-                {
-                    client.Inbox.AddFlags(message.Index, MessageFlags.Deleted, true);
-                }
-            }
+            } while (startIndex < emailCount - 1);
 
             Console.Write("Deleting messages from folder...");
 

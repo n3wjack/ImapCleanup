@@ -42,11 +42,13 @@ namespace ImapCleanup
         private static Command CreateCountCommand(Option<bool> whatIfOption, ImapConfigurationBinder imapConfigurationBinder)
         {
             var emailsToKeepOption = new Option<int>("--keep", "Number of emails to keep.") { IsRequired = true };
+            var batchSize = new Option<int>("--batchsize", "Batch size of emails to fetch (optional). Default is 200.") { IsRequired = false };
             var countCommand = new Command("count");
 
-            countCommand.SetHandler(CountCommandHandler, imapConfigurationBinder, emailsToKeepOption, whatIfOption);
+            countCommand.SetHandler(CountCommandHandler, imapConfigurationBinder, emailsToKeepOption, batchSize, whatIfOption);
             countCommand.Description = "Delete emails over the given number of emails to keep.";
             countCommand.AddOption(emailsToKeepOption);
+            countCommand.AddOption(batchSize);
 
             return countCommand;
         }
@@ -55,9 +57,10 @@ namespace ImapCleanup
         {
             var fromHourOption = new Option<TimeSpan>(new string[] { "--fromhour", "--from" }, "The hour to delete from.") { IsRequired = true };
             var toHourOption = new Option<TimeSpan>(new string[] { "--tohour", "--to" }, "The hour to delete to.") { IsRequired = true };
+            var batchSize = new Option<int>("--batchsize", "Batch size of emails to fetch (optional). Default is 200.") { IsRequired = false };
             var timeCommand = new Command("time");
 
-            timeCommand.SetHandler(TimeCommandHandler, imapConfigurationBinder, fromHourOption, toHourOption, whatIfOption);
+            timeCommand.SetHandler(TimeCommandHandler, imapConfigurationBinder, fromHourOption, toHourOption, batchSize, whatIfOption);
             timeCommand.Description = "Delete emails in a given time frame.";
             timeCommand.AddOption(fromHourOption);
             timeCommand.AddOption(toHourOption);
@@ -65,14 +68,14 @@ namespace ImapCleanup
             return timeCommand;
         }
 
-        static void CountCommandHandler(ImapConfiguration configuration, int emailsToKeep, bool whatIf)
+        static void CountCommandHandler(ImapConfiguration configuration, int emailsToKeep, int batchSize, bool whatIf)
         {
-            new CleanupEmailsCommand(configuration, whatIf).Run(emailsToKeep);
+            new CleanupEmailsCommand(configuration, whatIf).Run(emailsToKeep, batchSize <= 0 ? 200 : batchSize);
         }
 
-        static void TimeCommandHandler(ImapConfiguration configuration, TimeSpan fromHour, TimeSpan toHour, bool whatIf)
+        static void TimeCommandHandler(ImapConfiguration configuration, TimeSpan fromHour, TimeSpan toHour, int batchSize, bool whatIf)
         {
-            new DeleteEmailsByHourCommand(configuration, whatIf).Run(fromHour, toHour); 
+            new DeleteEmailsByHourCommand(configuration, whatIf).Run(fromHour, toHour, batchSize <= 0 ? 200 : batchSize); 
         }
     }
 }
