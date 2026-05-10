@@ -16,33 +16,46 @@ namespace ImapCleanup.Commands
         /// Run the cleanup emails command.
         /// </summary>
         /// <param name="numberOfMessagesToKeep">Number of messages to keep.</param>
-        internal void Run(int numberOfMessagesToKeep)
+        /// <param name="batchSize">Batch size to use for fetched emails.</param>
+        internal void Run(int numberOfMessagesToKeep, int batchSize)
         {
-            LoginAndRunAction((imapClient) => RemoveEmails(imapClient, numberOfMessagesToKeep));
+            LoginAndRunAction((imapClient) => RemoveEmails(imapClient, numberOfMessagesToKeep, batchSize));
         }
 
-        private void RemoveEmails(ImapClient client, int numberOfMessagesToKeep)
+        private void RemoveEmails(ImapClient client, int numberOfMessagesToKeep, int batchSize)
         {
             Console.WriteLine("Getting messages...");
             client.Inbox.Open(FolderAccess.ReadWrite);
 
             Console.WriteLine($"Found {client.Inbox.Count} messages.");
             var numberToDelete = client.Inbox.Count - numberOfMessagesToKeep;
+            
+            var startIndex = 0;
 
             if (numberToDelete > 0)
             {
-                // Messages are fetch from oldest to newest.
-                var messages = client.Inbox.Fetch(0, numberToDelete - 1, MessageSummaryItems.All);
+                do {
+                    var batchToDelete = numberToDelete > batchSize ? batchSize : numberToDelete;
+                    var endIndex = startIndex + batchToDelete - 1;
 
-                foreach (var message in messages)
-                {
-                    Console.WriteLine($"Marking message for deletion: [{message.Index}] {message.Date} - {message.NormalizedSubject}");
+                    Console.WriteLine($"Processing emails from index {startIndex} to {endIndex}");
 
-                    if (!WhatIf)
+                    // Messages are fetched from oldest to newest.
+                    var messages = client.Inbox.Fetch(startIndex, endIndex, MessageSummaryItems.All);
+
+                    foreach (var message in messages)
                     {
-                        client.Inbox.AddFlags(message.Index, MessageFlags.Deleted, true);
+                        Console.WriteLine($"Marking message for deletion: [{message.Index}] {message.Date} - {message.NormalizedSubject}");
+
+                        if (!WhatIf)
+                        {
+                            client.Inbox.AddFlags(message.Index, MessageFlags.Deleted, true);
+                        }
                     }
-                }
+
+                    numberToDelete -= batchToDelete;
+                    startIndex = endIndex + 1;
+                } while (numberToDelete > 0);
 
                 Console.Write("Deleting messages from folder...");
 
