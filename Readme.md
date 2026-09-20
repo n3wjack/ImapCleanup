@@ -8,23 +8,37 @@ It uses SSL by default to connect to the IMAP server.
 ## Requirements
 
 To run the application you can download the Windows x64 binary to run it without dependencies on a Windows 64-bit operating system.
-If you are on another platform, you need to install the [.NET Core framework](https://dotnet.microsoft.com/download) to be able to run the general framework dependent release.
+If you are on another platform, you need to install the [.NET Core framework](https://dotnet.microsoft.com/download) to be able to run the general framework dependent release, or you can use the **Docker images**.
 
 ## Installing
 
-- Download the installer zip for your system. See Releases below. If you are running on a Windows x64 system (a recent machine running Windows 10 for example) you'll want to get the x64 self-contained zip. If in another case, get the framework dependent version. You will need to [install .NET core](https://dotnet.microsoft.com/download) for this.
+### Using the zip archives
+
+Download the installer zip for your system. See Releases below. If you are running on a Windows x64 system (a recent machine running Windows 10 for example) you'll want to get the x64 self-contained zip. If in another case, get the framework dependent version. You will need to [install .NET core](https://dotnet.microsoft.com/download) for this.
 - Extract the zip file in a new folder somewhere.
 
-For the self-contained version, the zip only contains a single executable. You can copy this file anywhere, and run it from there.
+For the **self-contained version**, the zip only contains a single executable. You can copy this file anywhere, and run it from there.
 For the framework version, it contains a number of other files, so it's better to keep this in it's own folder, and run the program from there.
+
+### Using Docker
+
+Pull the image by running
+
+	docker pull n3wjack/imapcleanup
 
 ## Usage
 
 Once built or installed, you can call the executable using command line arguments to point it to your IMAP inbox.
+
+When using the Docker image, add the command line arguments at the end of the `docker run` statement, like this:
+
+	docker run n3wjack/imapcleanup --version
+
+### Examples
+
 This will delete all messages, except the 500 most recent ones:
 
 	.\ImapCleanup.exe count --keep 500 --hostname imap.mailserver.com --port 993 --username jack@foobar.com --password horsestaplebattery
-
 
 Or you can delete all emails that have a timestamp between 11 'o clock in the evening and 6 in the morning:
 
@@ -37,8 +51,11 @@ For help with one of the subcommands, use `.\ImapCleanup.exe count` or `.\ImapCl
 
 See [releases](https://github.com/n3wjack/ImapCleanup/releases)
 
-- ImapCleanup-2.0.zip: framework dependent version. You need to have the .NET Core 8.0 framework installed to run this. This runs on any platform.
-- ImapCleanup-2.0-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
+- ImapCleanup-x.y.z.zip: framework dependent version. You need to have the .NET Core framework installed to run this. This runs on any platform.
+- ImapCleanup-x.y.z-Windowsx64-self-contained.zip: a self-contained release for Windows x64 only. This runs without any dependencies.
+
+Also see Docker HUB for the available Docker images:
+- https://hub.docker.com/r/n3wjack/imapcleanup
 
 ## Building
 
@@ -46,8 +63,8 @@ You need to have the .NET Core 10 SDK installed to build this. You can use Visua
 
 There are 3 way to build the project.
 
-1. Use Visual Studio.
-2. Run the `build.cmd` script to build a Windows 64-bit self-contained executable.
+1. Use Visual Studio to build the project.
+2. Run the `build.ps1` script to build all packages and the Docker container.
 3. Use the `dotnet` tool from the command line: `dotnet build ImapCleanup.sln`
 
 ## Disclaimer
